@@ -7,7 +7,7 @@
     <ProjectGuid>{8E5DF568-AEFB-4296-A6FA-427ADAC0AEA2}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>SpotifyStuff</RootNamespace>
-    <AssemblyName>SpotifyStuff</AssemblyName>
+    <AssemblyName>SpotifySongAdder</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

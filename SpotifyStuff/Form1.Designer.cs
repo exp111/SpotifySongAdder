@@ -111,6 +111,11 @@
 			// addSongCount
 			// 
 			this.addSongCount.Location = new System.Drawing.Point(477, 345);
+			this.addSongCount.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
 			this.addSongCount.Name = "addSongCount";
 			this.addSongCount.Size = new System.Drawing.Size(73, 20);
 			this.addSongCount.TabIndex = 8;

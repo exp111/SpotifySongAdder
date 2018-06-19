@@ -74,7 +74,7 @@ namespace SpotifyStuff
 			}
 
 			_playlists = list;
-			playlistList.DataSource = _playlists;
+			playlistListbox.DataSource = _playlists;
 		}
 
 		private void refreshPlaylistsButton_Click(object sender, EventArgs e)
@@ -91,11 +91,25 @@ namespace SpotifyStuff
 			if (songURL == "")
 				return;
 
-			SimplePlaylist selectedPlaylist = (SimplePlaylist)playlistList.SelectedItem;
+			SimplePlaylist selectedPlaylist = (SimplePlaylist)playlistListbox.SelectedItem;
 			List<string> tracks = new List<string>();
 			for (int i = 0; i < addSongCount.Value; i++)
 				tracks.Add(songURL);
 			ErrorResponse error = _spotifyWebAPI.AddPlaylistTracks(_profile.Id, selectedPlaylist.Id, tracks);
+		}
+
+		private void searchButton_Click(object sender, EventArgs e)
+		{
+			if (_spotifyWebAPI == null)
+				return;
+
+			string searchText = searchInput.Text;
+			if (searchText == "")
+				return;
+
+			SearchItem searchResult = _spotifyWebAPI.SearchItems(searchText, SearchType.All);
+			var result = searchResult.Tracks.Items.ToList();
+			
 		}
 	}
 }

@@ -87,7 +87,12 @@ namespace SpotifyStuff
 			if (_spotifyWebAPI == null || _profile == null)
 				return;
 
-			string songURL = addSongURL.Text;
+			if (searchView.SelectedItems.Count == 0)
+				return;
+			ListViewItem selectedSong = searchView.SelectedItems[0];
+			if (selectedSong == null)
+				return;
+			string songURL = selectedSong.Tag as string;
 			if (songURL == "")
 				return;
 
@@ -109,7 +114,31 @@ namespace SpotifyStuff
 
 			SearchItem searchResult = _spotifyWebAPI.SearchItems(searchText, SearchType.All);
 			var result = searchResult.Tracks.Items.ToList();
-			
+			foreach (var song in result)
+			{
+				ListViewItem item = new ListViewItem(new[] { song.Name, song.Artists.FirstOrDefault().Name, song.Album.Name, MsToM(song.DurationMs) });
+				item.Tag = song.Uri;
+				searchView.Items.Add(item);
+			}
+		}
+
+		public static String MsToM(double miliseconds)
+		{
+			StringBuilder message = new StringBuilder();
+
+			int years = (int)(miliseconds / 1000 / 60 / 60 / 24 / 365);
+			int days = (int)(miliseconds / 1000 / 60 / 60 / 24 % 365);
+			int hours = (int)(miliseconds / 1000 / 60 / 60 % 24);
+			int minutes = (int)(miliseconds / 1000 / 60 % 60);
+			int seconds = (int)(miliseconds / 1000 % 60);
+
+			message.Append(years > 0 ? years + "a " : "");
+			message.Append(days > 0 ? days + "d " : "");
+			message.Append(hours > 0 ? hours + "h " : "");
+			message.Append(minutes > 0 ? minutes + "m " : "");
+			message.Append(seconds + "s");
+
+			return message.ToString();
 		}
 	}
 }

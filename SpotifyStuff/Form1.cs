@@ -116,6 +116,12 @@ namespace SpotifyStuff
 			if (searchText == "")
 				return;
 
+            // Clearing the list on new Searches 
+            foreach (ListViewItem item in searchView.Items)
+            {
+                searchView.Items.Remove(item);
+            }
+
 			SearchItem searchResult = _spotifyWebAPI.SearchItems(searchText, SearchType.All);
 			var result = searchResult.Tracks.Items.ToList();
 			foreach (var song in result)

@@ -22,6 +22,10 @@ namespace SpotifyStuff
 		public Form1()
 		{
 			InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle; // Making the Window a fixed size
+            // Removing the Maximize and Minimize Buttons, because the shit is not scaled...
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
 		}
 
 		private async void button1_ClickAsync(object sender, EventArgs e)

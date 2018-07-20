@@ -150,5 +150,14 @@ namespace SpotifyStuff
 
 			return message.ToString();
 		}
-	}
+
+        private void searchInput_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)Keys.Enter) // Check if Enter has been pressed
+            {
+                searchButton_Click(sender, new EventArgs()); // Calling the Search button
+                e.Handled = true; // Surpressing the Sound the normally plays when hitting Enter
+            }
+        }
+    }
 }

@@ -22,6 +22,10 @@ namespace SpotifyStuff
 		public Form1()
 		{
 			InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle; // Making the Window a fixed size
+            // Removing the Maximize and Minimize Buttons, because the shit is not scaled...
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
 		}
 
 		private async void button1_ClickAsync(object sender, EventArgs e)
@@ -112,6 +116,12 @@ namespace SpotifyStuff
 			if (searchText == "")
 				return;
 
+            // Clearing the list on new Searches 
+            foreach (ListViewItem item in searchView.Items)
+            {
+                searchView.Items.Remove(item);
+            }
+
 			SearchItem searchResult = _spotifyWebAPI.SearchItems(searchText, SearchType.All);
 			var result = searchResult.Tracks.Items.ToList();
 			foreach (var song in result)
@@ -140,5 +150,14 @@ namespace SpotifyStuff
 
 			return message.ToString();
 		}
-	}
+
+        private void searchInput_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == (char)Keys.Enter) // Check if Enter has been pressed
+            {
+                searchButton_Click(sender, new EventArgs()); // Calling the Search button
+                e.Handled = true; // Surpressing the Sound the normally plays when hitting Enter
+            }
+        }
+    }
 }
